@@ -25,7 +25,8 @@ A request logger for requests and responses from the requests and flask librarie
          ]
       ],
       "url":"http://localhost/",
-      "method":"GET"
+      "method":"GET",
+      "payload": None
    },
    "response":{
       "status":"200 OK",
@@ -47,6 +48,24 @@ A request logger for requests and responses from the requests and flask librarie
 ## Configure flask
 
 
+ ```python
+ class FlaskApp(flask.Flask):
+
+     def log_it(self, response):
+         logger.log(response)
+         return response
+
+ logger = frl.server.ServerRequestLogger(
+     'logger-name',
+     ['card_number', 'password']
+ )
+
+ app = FlaskApp(__name__)
+ app.after_request(app.log_it)
+
+ ```
+
+
 ## Configure requests
 
 
@@ -59,7 +78,14 @@ response = requests.get('http://google.com')
 logger.log(response)
 ```
 
-You can mask sensitive data from payloads.
-
-
 You can add additional data into the meta field.
+
+```python
+logger = frl.client.ClientRequestLogger(
+    'logger-name',
+    ['card_number', 'password']
+)
+def meta_logger(response):
+   return {'foo': 'bar'}
+logger.meta_population_methods.append(meta_logger)
+```
