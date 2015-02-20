@@ -56,9 +56,11 @@ setuptools.setup(
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
         "Programming Language :: Python",
+        "License :: OSI Approved :: MIT License",
     ],
     author='Balanced',
     author_email='dev+frl@balancedpayments.com',
+    license='The MIT License: http://www.opensource.org/licenses/mit-license.php',
     packages=packages,
     include_package_data=True,
     zip_safe=False,
