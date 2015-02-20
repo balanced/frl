@@ -1,3 +1,4 @@
+# This Python file uses the following encoding: utf-8
 from __future__ import unicode_literals
 
 import json
@@ -28,7 +29,7 @@ class FlaskApp(flask.Flask):
 
 
 def hello_world():
-    return 'Hello World!'
+    return 'Hello 漢語!'
 
 
 class BaseTestCase(unittest.TestCase):
@@ -113,3 +114,12 @@ class ServerTestCase(BaseTestCase):
         args, _ = logger.info.call_args
         payload = args[0]
         self.assertIn('"meta": {"foo": "bar"}', payload)
+
+    def test_unicode_payloads(self):
+        data = {
+            '汉语': '漢語'
+        }
+        with mock.patch.object(self.logger, 'logger') as logger:
+            self.client.post('/', data=data, content_type='application/json')
+            self.client.post('/語')
+        self.assertEqual(logger.info.call_count, 2)
