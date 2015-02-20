@@ -1,0 +1,19 @@
+language: python
+python:
+- 2.7
+install:
+- pip install "blumpkin>=0.4,<0.5"
+- pip install -e .[tests]
+- pip install -e .[client]
+- pip install -e .[server]
+- python setup.py develop
+script:
+- nosetests -sv --with-xunitmp --with-cov --cov=frl --cov-report term-missing
+- coverage combine
+- coverage report
+- coverage xml
+- blumpkin coverage coverage.xml frl:90
+after_success:
+- find frl -name "*.py" | xargs pep8 --ignore=E711 | tee pep8.out
+- blumpkin create-pypi
+- blumpkin publish --on-tag
