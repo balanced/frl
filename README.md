@@ -26,7 +26,7 @@ A request logger for requests and responses from the requests and flask librarie
       ],
       "url":"http://localhost/",
       "method":"GET",
-      "payload": None
+      "payload": null
    },
    "response":{
       "status":"200 OK",
