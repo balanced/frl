@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import logging
 import json
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 
 class RequestLogger(object):
