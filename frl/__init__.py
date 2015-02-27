@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import logging
 import json
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 
 class RequestLogger(object):
@@ -109,3 +109,5 @@ class RequestLogger(object):
             entry = self.encoder(entry)
 
         self.logger.info(entry)
+
+        return response
